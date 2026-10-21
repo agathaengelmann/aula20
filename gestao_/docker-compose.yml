@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  # Serviço do Banco de Dados PostgreSQL
+  postgres:
+    image: postgres:16-alpine
+    container_name: funcionarios_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: funcionarios_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespassword
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      # Script DDL executado automaticamente na primeira inicialização do banco
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d funcionarios_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - funcionarios_network
+
+  # Serviço da Aplicação Web (Frontend React + Backend Express)
+  meu-servico:
+    build:
+      context: ./pasta-do-servico
+      dockerfile: Dockerfile
+    container_name: meu_servico_app
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      SQL_HOST: postgres
+      SQL_PORT: 5432
+      SQL_DB_NAME: funcionarios_db
+      SQL_USER: postgres
+      SQL_PASSWORD: postgrespassword
+    volumes:
+      - app_data:/app/.data
+    networks:
+      - funcionarios_network
+
+volumes:
+  postgres_data:
+    driver: local
+  app_data:
+    driver: local
+
+networks:
+  funcionarios_network:
+    driver: bridge

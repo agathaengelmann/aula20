@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+@layer utilities {
+  /* Fundo holográfico furta-cor metálico claro */
+  .bg-iridescent-metallic {
+    background: radial-gradient(circle at 10% 20%, rgba(224, 231, 255, 0.85) 0%, transparent 40%),
+                radial-gradient(circle at 90% 15%, rgba(254, 215, 226, 0.75) 0%, transparent 35%),
+                radial-gradient(circle at 50% 50%, rgba(207, 250, 254, 0.65) 0%, transparent 45%),
+                radial-gradient(circle at 80% 85%, rgba(243, 232, 255, 0.85) 0%, transparent 40%),
+                radial-gradient(circle at 15% 85%, rgba(254, 240, 138, 0.45) 0%, transparent 35%),
+                linear-gradient(135deg, #f8fafc 0%, #f1f5f9 45%, #e2e8f0 100%);
+  }
+
+  .bg-glass-card {
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    box-shadow: 0 20px 40px -15px rgba(147, 197, 253, 0.22), 
+                0 0 16px 1px rgba(255, 255, 255, 0.6) inset;
+  }
+
+  .bg-glass-card-elevated {
+    background: rgba(255, 255, 255, 0.62);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1.5px solid rgba(255, 255, 255, 0.85);
+    box-shadow: 0 25px 50px -12px rgba(165, 180, 252, 0.28),
+                0 0 24px 2px rgba(255, 255, 255, 0.85) inset;
+  }
+
+  .bg-glass-input {
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.85);
+  }
+
+  .text-iridescent {
+    background: linear-gradient(135deg, #4338ca 0%, #7c3aed 35%, #db2777 65%, #0284c7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .btn-metallic-iridescent {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 30%, #ec4899 65%, #06b6d4 100%);
+    background-size: 200% 200%;
+    animation: iridescentShift 6s ease infinite;
+    box-shadow: 0 10px 25px -5px rgba(168, 85, 247, 0.38),
+                0 0 14px 1px rgba(255, 255, 255, 0.45) inset;
+  }
+
+  /* Orbe furta-cor metálico luminoso */
+  .orb-iridescent-1 {
+    background: radial-gradient(circle, rgba(167, 139, 250, 0.45) 0%, rgba(244, 114, 182, 0.3) 45%, transparent 70%);
+    filter: blur(35px);
+  }
+
+  .orb-iridescent-2 {
+    background: radial-gradient(circle, rgba(103, 232, 249, 0.5) 0%, rgba(192, 132, 252, 0.35) 50%, transparent 70%);
+    filter: blur(35px);
+  }
+
+  .orb-iridescent-3 {
+    background: radial-gradient(circle, rgba(254, 215, 170, 0.5) 0%, rgba(244, 114, 182, 0.35) 50%, transparent 70%);
+    filter: blur(35px);
+  }
+}
+
+@keyframes iridescentShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes floatSheen {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-7px) rotate(0.6deg); }
+}
+
+.animate-float {
+  animation: floatSheen 6s ease-in-out infinite;
+}
